@@ -8,14 +8,32 @@
     <title>Vite + TS</title>
   </head>
   <body>
+    <style>
+      my-counter:not(:defined) {
+        visibility: hidden;
+      }
+    </style>
     <main>
       <div id="app">
-        <my-counter>
-          <button>1</button>
-        </my-counter>
+        <my-counter>2</my-counter>
+
+        <!-- il template usato all'interno -->
+        <template id="counter-template">
+          <style>
+            button {
+              background-color: greenyellow;
+              border: none;
+              border-radius: 0.25rem;
+              font-size: 2rem;
+              padding: 0.5rem 1rem;
+            }
+          </style>
+          <button>
+            <slot></slot>
+          </button>
+        </template>
       </div>
     </main>
-    </body>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

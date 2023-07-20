@@ -1,15 +1,22 @@
 /**
- * - ✅ Good for SSR
+ * - ⚠️ Client render only
  * - ✅ No external dependencies
- * - ✅ Progressive enhancement (senza layout shift)
+ * - ✅ Dry
+ * - ⚠️ Layout shift
  */
 class Counter extends HTMLElement {
   connectedCallback() {
-    this.querySelector("button")?.addEventListener("click", (evt) => {
-      const target = evt.currentTarget as HTMLButtonElement;
-      const number = Number(target.textContent);
+    const template = document.querySelector(
+      "#counter-template"
+    ) as HTMLTemplateElement;
 
-      target.textContent = String(number + 1);
+    const shadowRoot = this.attachShadow({ mode: "open" });
+    shadowRoot.appendChild(template.content.cloneNode(true));
+
+    shadowRoot.querySelector("button")?.addEventListener("click", () => {
+      const number = Number(this.innerText);
+
+      this.textContent = String(number + 1);
     });
   }
 }
