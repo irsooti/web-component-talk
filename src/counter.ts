@@ -1,19 +1,13 @@
 /**
- * - ⚠️ Client render only
- * - ✅ No external dependencies
- * - ✅ Dry
- * - ⚠️ Layout shift
+ * ✅ Server rendered (except firefox)
+ * ✅ No external dependencies
+ * ✅ Encapsulation
+ * ✅ Progressive enhancement (senza layout shift)
  */
+
 class Counter extends HTMLElement {
   connectedCallback() {
-    const template = document.querySelector(
-      "#counter-template"
-    ) as HTMLTemplateElement;
-
-    const shadowRoot = this.attachShadow({ mode: "open" });
-    shadowRoot.appendChild(template.content.cloneNode(true));
-
-    shadowRoot.querySelector("button")?.addEventListener("click", () => {
+    this.addEventListener("click", () => {
       const number = Number(this.innerText);
 
       this.textContent = String(number + 1);
